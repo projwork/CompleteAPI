@@ -24,7 +24,7 @@ namespace MagicVilla.API.Repository
                                     VillaNo = v.VillaNo,
                                     VillaID = v.VillaID,
                                     SpecialDetails = v.SpecialDetails,
-                                    Villa = new VillaDTO()
+                                    Villa = vi == null ? null : new VillaDTO()
                                     {
                                         Amenity = vi.Amenity,
                                         Details = vi.Details,
@@ -39,7 +39,7 @@ namespace MagicVilla.API.Repository
             return villas;
         }
 
-        public async Task<VillaNumberDTO?> GetById(int id)
+        public async Task<VillaNumberDTO> GetById(int id)
         {
             var villa = await (from v in _db.VillaNumbers.Where(v => v.VillaNo == id)
                                from vi in _db.Villas.Where(a => a.Id == v.VillaID).DefaultIfEmpty()
@@ -48,7 +48,7 @@ namespace MagicVilla.API.Repository
                                    VillaNo = v.VillaNo,
                                    VillaID = v.VillaID,
                                    SpecialDetails = v.SpecialDetails,
-                                   Villa = new VillaDTO()
+                                   Villa = vi == null ? null : new VillaDTO()
                                    {
                                        Amenity = vi.Amenity,
                                        Details = vi.Details,
