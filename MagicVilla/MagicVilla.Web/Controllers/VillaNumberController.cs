@@ -65,7 +65,7 @@ namespace MagicVilla.Web.Controllers
                 }
                 else
                 {
-                    if (response.ErrorMessages.Count > 0)
+                    if (response?.ErrorMessages.Count > 0)
                     {
                         ModelState.AddModelError("ErrorMessages", response.ErrorMessages.FirstOrDefault());
                     }

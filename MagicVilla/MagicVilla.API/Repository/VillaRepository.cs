@@ -15,7 +15,7 @@ namespace MagicVilla.API.Repository
             _db = db;
         }
 
-        public async Task<List<VillaDTO>> GetAll()
+        public async Task<List<VillaDTO>> GetAll(int pageNumber, int pageSize)
         {
             var villas = await (from v in _db.Villas
                                 select new VillaDTO()
@@ -28,7 +28,7 @@ namespace MagicVilla.API.Repository
                                     Occupancy = v.Occupancy,
                                     Rate = v.Rate,
                                     Sqft = v.Sqft
-                                }).ToListAsync();
+                                }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return villas;
         }
 
